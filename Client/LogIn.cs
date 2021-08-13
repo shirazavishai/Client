@@ -43,6 +43,8 @@ namespace Client
             {
 
             }
+            Board board = new Board();
+            board.Activate();
         }
     }
 }

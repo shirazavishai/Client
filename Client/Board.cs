@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -19,22 +20,27 @@ namespace Client
 
         }
 
-        private void Board_Load(object sender, EventArgs e)
+        private async void Board_Load(object sender, EventArgs e)
         {
             httpclient.BaseAddress = new Uri("https://localhost:44317/");
-            //CreatePlayerAsync();
+            await CreateGameAsync("Nissim");
             label2.Visible = false;
         }
 
 
-        //static async Task<Uri> CreatePlayerAsync(string playerId)
-        //{
-        //    HttpResponseMessage response = await httpclient.PostAsJsonAsync("api/TblPlayers",playerId );
-        //    response.EnsureSuccessStatusCode();
+        static async Task<Uri> CreateGameAsync(string playerId)
+        {
+            string playerIdAsJson = JsonConvert.SerializeObject(new { playerId = playerId});
 
-        //    // return URI of the created resource.
-        //    return response.Headers.Location;
-        //}
+            var content = new StringContent(playerIdAsJson, Encoding.UTF8, "application/json");
+            
+            HttpResponseMessage response = await httpclient.PostAsync(httpclient.BaseAddress, content);
+            
+            response.EnsureSuccessStatusCode();
+
+            // return URI of the created resource.
+            return response.Headers.Location;
+        }
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
