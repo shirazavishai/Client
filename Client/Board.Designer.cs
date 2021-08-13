@@ -116,7 +116,7 @@ namespace Client
             this.groupBox1.Controls.Add(this.pictureBox3);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.pictureBox0);
-            this.groupBox1.Location = new System.Drawing.Point(274, 101);
+            this.groupBox1.Location = new System.Drawing.Point(266, 122);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -450,7 +450,7 @@ namespace Client
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Location = new System.Drawing.Point(240, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(541, 74);
+            this.label3.Size = new System.Drawing.Size(541, 94);
             this.label3.TabIndex = 3;
             this.label3.Text = "Tic Tac Toe";
             // 

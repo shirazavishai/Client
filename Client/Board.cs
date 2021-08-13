@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,14 +16,25 @@ namespace Client
         public Board()
         {
             InitializeComponent();
+
         }
 
         private void Board_Load(object sender, EventArgs e)
         {
             httpclient.BaseAddress = new Uri("https://localhost:44317/");
-            
+            //CreatePlayerAsync();
             label2.Visible = false;
         }
+
+
+        //static async Task<Uri> CreatePlayerAsync(string playerId)
+        //{
+        //    HttpResponseMessage response = await httpclient.PostAsJsonAsync("api/TblPlayers",playerId );
+        //    response.EnsureSuccessStatusCode();
+
+        //    // return URI of the created resource.
+        //    return response.Headers.Location;
+        //}
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
