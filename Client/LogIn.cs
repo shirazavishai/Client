@@ -9,10 +9,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Windows.Forms;
 using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
+
 
 namespace Client
 {
@@ -35,54 +34,38 @@ namespace Client
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Player p = new Player { Id = 5, Name = "Nissim", Games = "Nisso" };
-            string responseData = CreateProductAsync(p).ToString();
-            UserNameNull.Visible = true;
-            UserNameNull.Text = responseData;
+            UserNameNull.Visible = false;
+            UserIdNotValid.Visible = false;
 
-            //HttpResponseMessage response = client.PostAsJsonAsync("api/products", p);
+            if (UserNameInput.Text == "")
+            {
+                UserNameNull.Visible = true;
+            }
 
-            //JValue j = (JValue)JToken.FromObject(p);
-            //HttpRequestMessage response = client.PostAsync("api/TblPlayers");
-            
-            //UserNameNull.Text = response.ToString();
-            //UserNotFound.Visible = false;
-            //UserIdNotValid.Visible = false;
+            else if (IdInput == null || !int.TryParse(IdInput.Text, out int n))
+            {
+                UserIdNotValid.Visible = true;
+            }
 
-            //if (UserNameInput.Text=="")
-            //{
-            //    UserNameNull.Visible = true;
-            //}
+            else
+            {
+                var response = client.GetAsync("api/TblPlayers/" + IdInput.Text);
 
-            //else if (IdInput==null || !int.TryParse(IdInput.Text, out int n))
-            //{
-            //    UserIdNotValid.Visible = true;
-            //}
+                if (!response.)
+                {
+                    UserNotFound.Visible = true;
+                }
+                else
+                {
+                    gameBoard = new Board(IdInput.Text);
+                    gameBoard.ShowDialog();
+                    Close();
+                }
 
-            //else
-            //{
-            //    UserNameNull.Visible = true;
-            //    UserIdNotValid.Visible = true;
+            }
+            Board board = new Board(IdInput.Text);
+            board.Activate();
 
-            //    var response = client.GetAsync("api/TblPlayers/" + IdInput.Text);
-            //    UserNameNull.Text = IdInput.Text;
-            //    UserIdNotValid.Text = response.Result.ToString();
-            //    if (response == null)
-            //    {
-            //        UserNotFound.Visible = true;
-            //    }
-            //    else
-            //    {
-            //        gameBoard = new Board(IdInput.Text);
-            //        gameBoard.ShowDialog();
-            //        Close();
-            //    }
-
-            //}
-
-            //Board board = new Board();
-            //board.Activate();
-           
         }
 
         static async Task<object> CreateProductAsync(Player p)

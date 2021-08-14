@@ -98,7 +98,7 @@ namespace Client
             this.buttonOK.TabIndex = 5;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_ClickAsync);
             // 
             // UserNameNull
             // 
