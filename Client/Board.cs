@@ -13,17 +13,19 @@ namespace Client
     {
 
         private static HttpClient httpclient = new HttpClient();
+        private string PlayerId;
 
-        public Board()
+        public Board(string playerId)
         {
             InitializeComponent();
+            PlayerId = playerId;
 
         }
 
         private async void Board_Load(object sender, EventArgs e)
         {
             httpclient.BaseAddress = new Uri("https://localhost:44317/");
-            await CreateGameAsync("Nissim");
+            
             label2.Visible = false;
         }
 
