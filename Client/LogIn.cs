@@ -59,7 +59,8 @@ namespace Client
 
         private async Task getPlayer()
         {
-            HttpResponseMessage response = await client.GetAsync("api/TblPlayers/" + IdInput.Text);
+            string url = "api/TblPlayers/" + IdInput.Text + "/" + UserNameInput.Text;
+            HttpResponseMessage response = await client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -67,9 +68,10 @@ namespace Client
             }
             else
             {
+                this.Hide();
                 gameBoard = new Board(IdInput.Text);
                 gameBoard.ShowDialog();
-                this.Hide();
+                this.Close();
             }
         }
 
