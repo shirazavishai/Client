@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Client
 {
@@ -12,8 +13,9 @@ namespace Client
     public partial class Board : Form
     {
 
-        private static HttpClient httpclient = new HttpClient();
+        private static HttpClient client = new HttpClient();
         private string PlayerId;
+        private int GameId;
 
         public Board(string playerId)
         {
@@ -22,22 +24,42 @@ namespace Client
 
         }
 
-        private void Board_Load(object sender, EventArgs e)
+        private async void Board_Load(object sender, EventArgs e)
         {
-            httpclient.BaseAddress = new Uri("https://localhost:44317/");
-            
             label2.Visible = false;
+            client.BaseAddress = new Uri("https://localhost:44317/");
+            await createGame();
+        }
+
+        private async Task createGame()
+        {
+            string url = "api/TblGames";
+            Game game = new Game {PlayerId = PlayerId,Moves = "" };
+            
+            HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                this.Hide();
+            }
+
+            var gameResultAsString = await response.Content.ReadAsStringAsync();
+
+            var gameObject = JsonConvert.DeserializeObject<Game>(gameResultAsString);
+
+            GameId = gameObject.Id;
+
         }
 
 
-        private void pictureBox_Click(object sender, EventArgs e)
+        private async void pictureBox_Click(object sender, EventArgs e)
         {
             String cellLabel = ((PictureBox)sender).Name;
 
             PictureBox pb = (PictureBox)sender;
             pb.Enabled = false;
-            //Game.doMove(cellLabel, Moves);
-
+            
+            await Play(cellLabel);
             var values = new Dictionary<string, Object>
             {
                 { "cellLabel", cellLabel }
@@ -54,6 +76,27 @@ namespace Client
 
             setNextTurn();
 
+
+        }
+
+        private async Task Play(string cellLabel)
+        {
+            string url = "api/TblGames/" + GameId;
+
+            var values = new Dictionary<string, string>()
+            {
+                {"cellLabel", cellLabel}
+            };
+            HttpResponseMessage response = await client.PutAsJsonAsync(url, values);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                this.Hide();
+            }
+
+            var playResult = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(playResult);
 
         }
 
