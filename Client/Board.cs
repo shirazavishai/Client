@@ -22,27 +22,13 @@ namespace Client
 
         }
 
-        private async void Board_Load(object sender, EventArgs e)
+        private void Board_Load(object sender, EventArgs e)
         {
             httpclient.BaseAddress = new Uri("https://localhost:44317/");
             
             label2.Visible = false;
         }
 
-
-        static async Task<Uri> CreateGameAsync(string playerId)
-        {
-            string playerIdAsJson = JsonConvert.SerializeObject(new { playerId = playerId});
-
-            var content = new StringContent(playerIdAsJson, Encoding.UTF8, "application/json");
-            
-            HttpResponseMessage response = await httpclient.PostAsync(httpclient.BaseAddress, content);
-            
-            response.EnsureSuccessStatusCode();
-
-            // return URI of the created resource.
-            return response.Headers.Location;
-        }
 
         private void pictureBox_Click(object sender, EventArgs e)
         {

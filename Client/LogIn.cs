@@ -32,7 +32,7 @@ namespace Client
 
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private async void ButtonOK_Click(object sender, EventArgs e)
         {
             UserNameNull.Visible = false;
             UserIdNotValid.Visible = false;
@@ -49,23 +49,28 @@ namespace Client
 
             else
             {
-                var response = client.GetAsync("api/TblPlayers/" + IdInput.Text);
-
-                if (!response.)
-                {
-                    UserNotFound.Visible = true;
-                }
-                else
-                {
-                    gameBoard = new Board(IdInput.Text);
-                    gameBoard.ShowDialog();
-                    Close();
-                }
+                await getPlayer();
 
             }
             Board board = new Board(IdInput.Text);
             board.Activate();
 
+        }
+
+        private async Task getPlayer()
+        {
+            HttpResponseMessage response = await client.GetAsync("api/TblPlayers/" + IdInput.Text);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                UserNotFound.Visible = true;
+            }
+            else
+            {
+                gameBoard = new Board(IdInput.Text);
+                gameBoard.ShowDialog();
+                this.Hide();
+            }
         }
 
         static async Task<object> CreateProductAsync(Player p)
