@@ -36,7 +36,7 @@ namespace Client
         private async void ButtonOK_Click(object sender, EventArgs e)
         {
             UserNameNull.Visible = false;
-            UserIdNotValid.Visible = false;
+            UserIdNotValid.Visible = false;te
 
             if (UserNameInput.Text == "")
             {

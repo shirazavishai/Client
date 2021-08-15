@@ -35,7 +35,7 @@ namespace Client
         private async Task createGame()
         {
             string url = "api/TblGames";
-            Game game = new Game {PlayerId = PlayerId,Moves = "" };
+            Game game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = -1};
             
             HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
 
@@ -55,25 +55,21 @@ namespace Client
 
         private async void pictureBox_Click(object sender, EventArgs e)
         {
-            String cellLabel = ((PictureBox)sender).Name;
-
             PictureBox pb = (PictureBox)sender;
+            String cellLabel = pb.Name;
+
             pb.Enabled = false;
+
+            fillCell(sender,0);
             
             await Play(cellLabel);
 
-            //if (Game.Moves.Count % 2 == 1)
-            //{
-            //    pb.BackColor = Color.Red;
-            //}
-            //else
-            //{
-            //    pb.BackColor = Color.Blue;
-            //}
+        }
 
-            setNextTurn();
-
-
+        private void fillCell(object sender, int sign)
+        {
+            PictureBox pb = (PictureBox)sender;
+            throw new NotImplementedException();
         }
 
         private async Task Play(string cellLabel)
@@ -96,22 +92,6 @@ namespace Client
 
             Console.WriteLine(playResult);
 
-        }
-
-
-        void setNextTurn()
-        {
-            //int movesDone = Game.Moves.Count;
-            //if(movesDone % 2 == 0)
-            //{
-            //    label2.Visible = false;
-            //    label1.Visible = true;
-            //}
-            //else
-            //{
-            //    label1.Visible = false;
-            //    label2.Visible = true;
-            //}
         }
     }
 }

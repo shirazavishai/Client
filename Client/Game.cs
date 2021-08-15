@@ -12,6 +12,8 @@ namespace Client
 
         public int Id { get; set; }
 
+        public int Winner { get; set; }
+
         public string Moves { get; set; }
     }
 }
