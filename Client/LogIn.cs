@@ -29,6 +29,7 @@ namespace Client
         private void LogIn_Load(object sender, EventArgs e)
         {
             client.BaseAddress = new Uri("https://localhost:44317/");
+            
 
         }
 

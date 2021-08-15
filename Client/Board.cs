@@ -29,6 +29,7 @@ namespace Client
             label2.Visible = false;
             client.BaseAddress = new Uri("https://localhost:44317/");
             await createGame();
+            
         }
 
         private async Task createGame()
@@ -60,10 +61,6 @@ namespace Client
             pb.Enabled = false;
             
             await Play(cellLabel);
-            var values = new Dictionary<string, Object>
-            {
-                { "cellLabel", cellLabel }
-            };
 
             //if (Game.Moves.Count % 2 == 1)
             //{
@@ -81,10 +78,11 @@ namespace Client
 
         private async Task Play(string cellLabel)
         {
-            string url = "api/TblGames/" + GameId;
+            string url = "api/TblGames/" + GameId + "/" + cellLabel;
 
             var values = new Dictionary<string, string>()
             {
+                {"id" , Convert.ToString(GameId)},
                 {"cellLabel", cellLabel}
             };
             HttpResponseMessage response = await client.PutAsJsonAsync(url, values);
