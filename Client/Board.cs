@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +18,17 @@ namespace Client
         private static HttpClient client = new HttpClient();
         private string PlayerId;
         private int GameId;
+        private PictureBox[] cells;
 
         public Board(string playerId)
         {
             InitializeComponent();
             PlayerId = playerId;
-
+            cells = new PictureBox []{ pictureBox0, pictureBox1, pictureBox2, pictureBox3, pictureBox4, 
+                                     pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, 
+                                     pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, 
+                                     pictureBox15, pictureBox16,pictureBox17, pictureBox18, pictureBox19, 
+                                     pictureBox20, pictureBox21, pictureBox22, pictureBox23, pictureBox24};
         }
 
         private async void Board_Load(object sender, EventArgs e)
@@ -35,18 +42,18 @@ namespace Client
         private async Task createGame()
         {
             string url = "api/TblGames";
-            Game game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = -1};
+            Game game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = "None"};
             
             HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
-
+            
             if (!response.IsSuccessStatusCode)
             {
                 this.Hide();
             }
 
-            var gameResultAsString = await response.Content.ReadAsStringAsync();
+            var gameAsString = await response.Content.ReadAsStringAsync();
 
-            var gameObject = JsonConvert.DeserializeObject<Game>(gameResultAsString);
+            var gameObject = JsonConvert.DeserializeObject<Game>(gameAsString);
 
             GameId = gameObject.Id;
 
@@ -57,19 +64,17 @@ namespace Client
         {
             PictureBox pb = (PictureBox)sender;
             String cellLabel = pb.Name;
-
+            pb.BackColor = Color.Red;
             pb.Enabled = false;
 
-            fillCell(sender,0);
-            
             await Play(cellLabel);
-
+            fillCell(sender,0);
         }
 
         private void fillCell(object sender, int sign)
         {
             PictureBox pb = (PictureBox)sender;
-            throw new NotImplementedException();
+        
         }
 
         private async Task Play(string cellLabel)
@@ -87,10 +92,28 @@ namespace Client
             {
                 this.Hide();
             }
+            
+            var turnResultAsString = await response.Content.ReadAsStringAsync();
+            var gameObject = JsonConvert.DeserializeObject<Game>(turnResultAsString);
 
-            var playResult = await response.Content.ReadAsStringAsync();
-
-            Console.WriteLine(playResult);
+            string[] split = gameObject.Moves.Split(new Char[] { ',', '\"' ,'\\'});
+            List<int> shittyList = new List<int>();
+            for(int i = 0; i < split.Length; i ++)
+            {
+                int numericValue = 0;
+                bool isNumber = int.TryParse(split[i], out numericValue);
+                if(isNumber == true)
+                {
+                    shittyList.Add(numericValue);
+                }
+            }
+            
+            int x = shittyList.Last();
+            cells[x].BackColor = Color.Blue;
+            cells[x].Enabled = false;
+            
+            
+            
 
         }
     }
