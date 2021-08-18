@@ -88,21 +88,19 @@ namespace Client
 
             httpResponse.EnsureSuccessStatusCode(); // throws if not 200-299
 
-            if (httpResponse.Content is object && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
-            {
                 var contentStream = await httpResponse.Content.ReadAsStreamAsync();
                 
                 var streamReader = new StreamReader(contentStream);
 
                 var jsonReader = new JsonTextReader(streamReader);
 
-                string output = JsonConvert.SerializeObject(jsonReader);
-                //JsonSerializer serializer = new JsonSerializer();
+                //string output = JsonConvert.SerializeObject(jsonReader);
+                JsonSerializer serializer = new JsonSerializer();
 
                 try
                 {
-                    Game game = JsonConvert.DeserializeObject<Game>(output);
-                    //Game game = serializer.Deserialize<Game>(jsonReader);
+                    //Game game = JsonConvert.DeserializeObject<Game>(output);
+                    Game game = serializer.Deserialize<Game>(jsonReader);
 
                     string[] split = game.Moves.Split(new Char[] { ',', '\"', '\\' });
 
@@ -132,11 +130,7 @@ namespace Client
                 {
                     Console.WriteLine("Invalid JSON.");
                 }
-            }
-            else
-            {
-                Console.WriteLine("HTTP Response was invalid and cannot be deserialised.");
-            }
+            
             return null;
         }
     }
