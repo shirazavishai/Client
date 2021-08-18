@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Client
 {
@@ -42,7 +42,7 @@ namespace Client
         private async Task createGame()
         {
             string url = "api/TblGames";
-            Game game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = "None"};
+            var game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = "None"};
             
             HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
             
@@ -77,44 +77,115 @@ namespace Client
         
         }
 
-        private async Task Play(string cellLabel)
+        private async Task<Game> Play(string cellLabel)
         {
+
             string url = "api/TblGames/" + GameId + "/" + cellLabel;
 
-            var values = new Dictionary<string, string>()
-            {
-                {"id" , Convert.ToString(GameId)},
-                {"cellLabel", cellLabel}
-            };
-            HttpResponseMessage response = await client.PutAsJsonAsync(url, values);
+            var values = new Dictionary<string, string>() {};
 
-            if (!response.IsSuccessStatusCode)
-            {
-                this.Hide();
-            }
-            
-            var turnResultAsString = await response.Content.ReadAsStringAsync();
-            var gameObject = JsonConvert.DeserializeObject<Game>(turnResultAsString);
+            var httpResponse = await client.PutAsJsonAsync(url, values);
 
-            string[] split = gameObject.Moves.Split(new Char[] { ',', '\"' ,'\\'});
-            List<int> shittyList = new List<int>();
-            for(int i = 0; i < split.Length; i ++)
+            httpResponse.EnsureSuccessStatusCode(); // throws if not 200-299
+
+            if (httpResponse.Content is object && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
             {
-                int numericValue = 0;
-                bool isNumber = int.TryParse(split[i], out numericValue);
-                if(isNumber == true)
+                var contentStream = await httpResponse.Content.ReadAsStreamAsync();
+                
+                var streamReader = new StreamReader(contentStream);
+
+                var jsonReader = new JsonTextReader(streamReader);
+
+                string output = JsonConvert.SerializeObject(jsonReader);
+                //JsonSerializer serializer = new JsonSerializer();
+
+                try
                 {
-                    shittyList.Add(numericValue);
+                    Game game = JsonConvert.DeserializeObject<Game>(output);
+                    //Game game = serializer.Deserialize<Game>(jsonReader);
+
+                    string[] split = game.Moves.Split(new Char[] { ',', '\"', '\\' });
+
+                    List<int> shittyList = new List<int>();
+
+                    for (int i = 0; i < split.Length; i++)
+                    {
+                        int numericValue = 0;
+                        bool isNumber = int.TryParse(split[i], out numericValue);
+                        if (isNumber == true)
+                        {
+                            shittyList.Add(numericValue);
+                        }
+                    }
+
+                    if (game.Winner != "None")
+                    {
+                        winnerTitle.Text = winnerTitle.Text + " " + game.Winner;
+                    }
+
+                    int x = shittyList.Last();
+                    cells[x].BackColor = Color.Blue;
+                    cells[x].Enabled = false;
+                    return game;
+                }
+                catch (JsonReaderException)
+                {
+                    Console.WriteLine("Invalid JSON.");
                 }
             }
-            
-            int x = shittyList.Last();
-            cells[x].BackColor = Color.Blue;
-            cells[x].Enabled = false;
-            
-            
-            
-
+            else
+            {
+                Console.WriteLine("HTTP Response was invalid and cannot be deserialised.");
+            }
+            return null;
         }
     }
+
+    //    private async Task Play(string cellLabel)
+    //    {
+    //        string url = "api/TblGames/" + GameId + "/" + cellLabel;
+
+    //        var values = new Dictionary<string, string>()
+    //        {
+    //            {"id" , Convert.ToString(GameId)},
+    //            {"cellLabel", cellLabel}
+    //        };
+    //        HttpResponseMessage response = await client.PutAsJsonAsync(url, values);
+
+    //        if (!response.IsSuccessStatusCode)
+    //        {
+    //            this.Hide();
+    //        }
+
+    //        var turnResultAsString = await response.Content.ReadAsStringAsync();
+
+    //        var gameObject = JsonSerializer.Deserialize(turnResultAsString);
+
+    //        //var gameObject = JsonConvert.DeserializeObject<Game>(turnResultAsString);
+
+    //        string[] split = gameObject.Moves.Split(new Char[] { ',', '\"' ,'\\'});
+
+    //        List<int> shittyList = new List<int>();
+
+    //        for(int i = 0; i < split.Length; i ++)
+    //        {
+    //            int numericValue = 0;
+    //            bool isNumber = int.TryParse(split[i], out numericValue);
+    //            if(isNumber == true)
+    //            {
+    //                shittyList.Add(numericValue);
+    //            }
+    //        }
+
+    //        if(gameObject.Winner != "None")
+    //        {
+    //            winnerTitle.Text = winnerTitle.Text + " " + gameObject.Winner;
+    //        }
+
+    //        int x = shittyList.Last();
+    //        cells[x].BackColor = Color.Blue;
+    //        cells[x].Enabled = false;
+
+    //    }
+    //}
 }
