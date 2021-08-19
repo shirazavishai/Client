@@ -35,9 +35,10 @@ namespace Client
             // 
             // startGameBtn
             // 
-            this.startGameBtn.Location = new System.Drawing.Point(80, 93);
+            this.startGameBtn.Location = new System.Drawing.Point(197, 90);
+            this.startGameBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.startGameBtn.Name = "startGameBtn";
-            this.startGameBtn.Size = new System.Drawing.Size(257, 78);
+            this.startGameBtn.Size = new System.Drawing.Size(343, 96);
             this.startGameBtn.TabIndex = 0;
             this.startGameBtn.Text = "Start new game";
             this.startGameBtn.UseVisualStyleBackColor = true;
@@ -45,9 +46,10 @@ namespace Client
             // 
             // WatchPrevGamesBtn
             // 
-            this.WatchPrevGamesBtn.Location = new System.Drawing.Point(447, 93);
+            this.WatchPrevGamesBtn.Location = new System.Drawing.Point(197, 256);
+            this.WatchPrevGamesBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.WatchPrevGamesBtn.Name = "WatchPrevGamesBtn";
-            this.WatchPrevGamesBtn.Size = new System.Drawing.Size(257, 78);
+            this.WatchPrevGamesBtn.Size = new System.Drawing.Size(343, 96);
             this.WatchPrevGamesBtn.TabIndex = 2;
             this.WatchPrevGamesBtn.Text = "Watch previous games";
             this.WatchPrevGamesBtn.UseVisualStyleBackColor = true;
@@ -55,11 +57,12 @@ namespace Client
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 285);
+            this.ClientSize = new System.Drawing.Size(720, 473);
             this.Controls.Add(this.WatchPrevGamesBtn);
             this.Controls.Add(this.startGameBtn);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Menu";
             this.Text = "Menu";
             this.ResumeLayout(false);

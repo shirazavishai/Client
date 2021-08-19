@@ -43,7 +43,7 @@ namespace Client
         {
             humanLabel.Text = gamePlayer.Name;
             changePlayersLabelsVisibility(true, false);
-            gamePlayersLabel.Text = "Computer \n\n      vs.\n\n" + gamePlayer.Name;
+            gamePlayersLabel.Text = "Computer\n\n vs.\n\n" + gamePlayer.Name;
             
         }
 
@@ -70,7 +70,7 @@ namespace Client
 
         private void collectRoundResults(GameRound currentRound)
         {
-            if (currentRound.ServerIndexMove != -1)
+            if (currentRound.ServerIndexMove != -1 && currentRound.Winner!= "Human")
             {
                 cells[currentRound.ServerIndexMove].BackColor = Color.Blue;
                 cells[currentRound.ServerIndexMove].Enabled = false;
@@ -137,7 +137,7 @@ namespace Client
         private void saveGame()
         {
 
-            ProjectDBEntities6 GamesMemoDB = new ProjectDBEntities6();
+            ProjectDBEntities7 GamesMemoDB = new ProjectDBEntities7();
 
             string gameMoves = string.Join(",", gameImplementation.gameMovesMemo);
 
@@ -147,12 +147,15 @@ namespace Client
             gameMemo.PlayerId = gamePlayer.Id;
             gameMemo.Moves = gameMoves;
 
-            GamesMemoDB.TblPlayersGamesMemoes.Add(gameMemo);
+            GamesMemoDB.TblPlayersGamesMemo.Add(gameMemo);
             GamesMemoDB.SaveChanges();
             
         }
 
-        
+        private void goBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }

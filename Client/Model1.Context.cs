@@ -13,10 +13,10 @@ namespace Client
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectDBEntities6 : DbContext
+    public partial class ProjectDBEntities7 : DbContext
     {
-        public ProjectDBEntities6()
-            : base("name=ProjectDBEntities6")
+        public ProjectDBEntities7()
+            : base("name=ProjectDBEntities7")
         {
         }
     
@@ -25,6 +25,6 @@ namespace Client
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TblPlayersGamesMemo> TblPlayersGamesMemoes { get; set; }
+        public virtual DbSet<TblPlayersGamesMemo> TblPlayersGamesMemo { get; set; }
     }
 }

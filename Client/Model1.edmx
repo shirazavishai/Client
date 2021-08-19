@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GamesAndPlayersDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TblPlayersGamesMemo">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,14 +14,14 @@
           <Property Name="GameId" Type="int" Nullable="false" />
           <Property Name="Moves" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityContainer Name="ProjectDBModelStoreContainer">
+        <EntityContainer Name="GamesAndPlayersDBModelStoreContainer">
           <EntitySet Name="TblPlayersGamesMemo" EntityType="Self.TblPlayersGamesMemo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ProjectDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="GamesAndPlayersDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="TblPlayersGamesMemo">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,17 +31,17 @@
           <Property Name="GameId" Type="Int32" Nullable="false" />
           <Property Name="Moves" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="ProjectDBEntities6" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TblPlayersGamesMemoes" EntityType="Self.TblPlayersGamesMemo" />
+        <EntityContainer Name="ProjectDBEntities7" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblPlayersGamesMemo" EntityType="Self.TblPlayersGamesMemo" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjectDBModelStoreContainer" CdmEntityContainer="ProjectDBEntities6">
-          <EntitySetMapping Name="TblPlayersGamesMemoes">
-            <EntityTypeMapping TypeName="ProjectDBModel.TblPlayersGamesMemo">
+        <EntityContainerMapping StorageEntityContainer="GamesAndPlayersDBModelStoreContainer" CdmEntityContainer="ProjectDBEntities7">
+          <EntitySetMapping Name="TblPlayersGamesMemo">
+            <EntityTypeMapping TypeName="GamesAndPlayersDBModel.TblPlayersGamesMemo">
               <MappingFragment StoreEntitySet="TblPlayersGamesMemo">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
@@ -64,7 +64,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
