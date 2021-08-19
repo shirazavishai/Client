@@ -13,9 +13,9 @@ namespace Client
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectDBEntities7 : DbContext
+    public partial class GamesMemoDB : DbContext
     {
-        public ProjectDBEntities7()
+        public GamesMemoDB()
             : base("name=ProjectDBEntities7")
         {
         }

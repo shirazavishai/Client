@@ -14,14 +14,14 @@ namespace Client
     public partial class GamesDisplay : Form
     {
         private Player player;
-        private ProjectDBEntities7 GamesMemoDB;
+        private GamesMemoDB GamesMemoDB;
 
         private const string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Asus\\AppData\\Local\\Microsoft\\Microsoft SQL Server Local DB\\Instances\\MSSQLLocalDB\\GamesAndPlayersDB.mdf;Integrated Security = True; Connect Timeout = 30";
         public GamesDisplay(Player gamePlayer)
         {
             InitializeComponent();
             player = gamePlayer;
-            GamesMemoDB = new ProjectDBEntities7();
+            GamesMemoDB = new GamesMemoDB();
         }
 
         private void GamesDisplay_Load(object sender, EventArgs e)

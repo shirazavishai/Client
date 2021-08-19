@@ -148,7 +148,7 @@ namespace Client
 
         private void saveGameForClient()
         {
-            ProjectDBEntities6 GamesMemoDB = new ProjectDBEntities6();
+            GamesMemoDB GamesMemoDB = new GamesMemoDB();
 
             string gameMoves = string.Join(",", gameImplementation.gameMovesMemo);
 
