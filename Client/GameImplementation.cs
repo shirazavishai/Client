@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -15,18 +14,22 @@ namespace Client
         private const int HUMAN_SIGN = 0;
         private const int SERVER_SIGN = 1;
 
+        private int GameId;
+        private int PlayerId;
+
         private int[] gameBoardCells;
         private List<int> unreachedCells;
         public List<int> gameMovesMemo { get; set; }
 
         private static HttpClient client = new HttpClient();
-        
 
-        public GameImplementation()
+        public GameImplementation(int gameId,int playerId)
         {
             initializeCellsCollections();
             client.BaseAddress = new Uri("https://localhost:44317/");
             gameMovesMemo = new List<int>();
+            GameId = gameId;
+            PlayerId = playerId;
         }
 
      
@@ -63,6 +66,7 @@ namespace Client
             if (CheckIfGameOver(HUMAN_SIGN) == true)
             {
                 round.Winner = "Human";
+                return round;
             }
 
             else if(round.unreachedCells.Count > 0)
@@ -203,6 +207,22 @@ namespace Client
             }
 
             return false;
+        }
+
+        public async void saveGame(string gameWinner)
+        {
+            string gameMoves = string.Join(",", gameMovesMemo);
+
+            string url = "api/TblGames/" + GameId;
+            var game = new Game { Id = GameId,PlayerId = PlayerId.ToString(), Moves = gameMoves, Winner = gameWinner };
+
+            HttpResponseMessage response = await client.PutAsJsonAsync(url, game);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var gameAsString = await response.Content.ReadAsStringAsync();
+                var gameObject = JsonConvert.DeserializeObject<Game>(gameAsString);
+            }
         }
     }
 }

@@ -31,12 +31,15 @@ namespace Client
                                      pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14,
                                      pictureBox15, pictureBox16,pictureBox17, pictureBox18, pictureBox19,
                                      pictureBox20, pictureBox21, pictureBox22, pictureBox23, pictureBox24};
-            if (gameType == NEW_GAME)
-            {
-                gameImplementation = new GameImplementation();
-            }
+
             gamePlayer = player;
             gameId = gId;
+
+            if (gameType == NEW_GAME)
+            {
+                gameImplementation = new GameImplementation(gameId, gamePlayer.Id);
+            }
+            
         }
 
         private void Board_Load(object sender, EventArgs e)
@@ -70,12 +73,12 @@ namespace Client
 
         private void collectRoundResults(GameRound currentRound)
         {
-            if (currentRound.ServerIndexMove != -1)
+            if (currentRound.ServerIndexMove != -1 && currentRound.Winner != "Human")
             {
                 cells[currentRound.ServerIndexMove].BackColor = Color.Blue;
                 cells[currentRound.ServerIndexMove].Enabled = false;
             }
-
+            string gameWinner;
             if (currentRound.Winner != "None")
             {
                 changePlayersLabelsVisibility(false, false);
@@ -83,25 +86,28 @@ namespace Client
 
                 if (currentRound.Winner == "Human")
                 {
+                    gameWinner = gamePlayer.Name;
                     winnerTitle.Text += gamePlayer.Name + " ! ";
                 }
 
                 else
                 {
+                    gameWinner = "Computer";
                     winnerTitle.Text += "Computer !";
                 }
                 
                 winnerTitle.Visible = true;
-                saveGame();
+                saveGame(gameWinner);
                 return;
             }
 
             if (currentRound.unreachedCells.Count == 0)
             {
+                gameWinner = "Draw";
                 changePlayersLabelsVisibility(false, false);
                 winnerTitle.Text = "GAME OVER";
                 winnerTitle.Visible = true;
-                saveGame();
+                saveGame(gameWinner);
                 return;
             }
 
@@ -134,9 +140,14 @@ namespace Client
                 }
             }
         }
-        private void saveGame()
+        private void saveGame(string gameWinner)
         {
+            saveGameForClient();
+            gameImplementation.saveGame(gameWinner);
+        }
 
+        private void saveGameForClient()
+        {
             ProjectDBEntities6 GamesMemoDB = new ProjectDBEntities6();
 
             string gameMoves = string.Join(",", gameImplementation.gameMovesMemo);
@@ -149,10 +160,6 @@ namespace Client
 
             GamesMemoDB.TblPlayersGamesMemoes.Add(gameMemo);
             GamesMemoDB.SaveChanges();
-            
         }
-
-        
     }
-
 }
