@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Client
 {
     partial class Board
@@ -530,6 +532,11 @@ namespace Client
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
 
+        }
+
+        private void goBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion

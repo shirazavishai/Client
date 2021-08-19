@@ -18,7 +18,7 @@ namespace Client
 
         public PastGameWatch(Player player, int gId,string moves)
         {
-            gameBoard = new Board(player, gId, PAST_GAME);
+            gameBoard = new Board(player, gId, PAST_GAME,null);
             gameBoard.Activate();            
             gameBoard.Show();
             gameBoard.makeCellsUnClickable();           

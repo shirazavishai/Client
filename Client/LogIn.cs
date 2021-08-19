@@ -28,8 +28,6 @@ namespace Client
         private void LogIn_Load(object sender, EventArgs e)
         {
             client.BaseAddress = new Uri("https://localhost:44317/");
-            
-
         }
 
         private async void ButtonOK_Click(object sender, EventArgs e)
@@ -71,9 +69,7 @@ namespace Client
             if (response.IsSuccessStatusCode)
             {
                 var playerAsString = await response.Content.ReadAsStringAsync();
-
                 var playerObject = JsonConvert.DeserializeObject<Player>(playerAsString);
-
                 return playerObject;
             }
             else
@@ -81,8 +77,6 @@ namespace Client
                 UserNotFound.Visible = true;
                 return null;
             }
-        
         }
-
     }
 }

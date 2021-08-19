@@ -32,7 +32,7 @@ namespace Client
 
             if (gameId != -1)
             {
-                gameBoard = new Board(player, gameId, NEW_GAME);
+                gameBoard = new Board(player, gameId, NEW_GAME,client);
                 gameBoard.Activate();
                 this.Hide();
                 gameBoard.ShowDialog();
@@ -44,15 +44,12 @@ namespace Client
         {
             string url = "api/TblGames";
             var game = new Game { PlayerId = player.Id.ToString(), Moves = "", Winner = "None" };
-
             HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
-
+       
             if (response.IsSuccessStatusCode)
             {
                 var gameAsString = await response.Content.ReadAsStringAsync();
-
                 var gameObject = JsonConvert.DeserializeObject<Game>(gameAsString);
-
                 return gameObject.Id;
             }
             return -1;

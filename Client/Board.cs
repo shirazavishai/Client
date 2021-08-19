@@ -18,11 +18,11 @@ namespace Client
         public PictureBox[] cells { get; set; }
 
         private GameImplementation gameImplementation;
-
+        private static HttpClient Client;
         private Player gamePlayer;
         private int gameId;
 
-        public Board(Player player,int gId,int gameType)
+        public Board(Player player,int gId,int gameType,HttpClient client)
         {
             InitializeComponent();
 
@@ -34,12 +34,12 @@ namespace Client
 
             gamePlayer = player;
             gameId = gId;
+            Client = client;
 
             if (gameType == NEW_GAME)
             {
-                gameImplementation = new GameImplementation(gameId, gamePlayer.Id);
+                gameImplementation = new GameImplementation(gameId, gamePlayer.Id,Client);
             }
-            
         }
 
         private void Board_Load(object sender, EventArgs e)

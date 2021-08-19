@@ -20,13 +20,12 @@ namespace Client
         private int[] gameBoardCells;
         private List<int> unreachedCells;
         public List<int> gameMovesMemo { get; set; }
+        private static HttpClient client;
 
-        private static HttpClient client = new HttpClient();
-
-        public GameImplementation(int gameId,int playerId)
+        public GameImplementation(int gameId,int playerId,HttpClient rec_client)
         {
             initializeCellsCollections();
-            client.BaseAddress = new Uri("https://localhost:44317/");
+            client = rec_client;
             gameMovesMemo = new List<int>();
             GameId = gameId;
             PlayerId = playerId;
@@ -49,18 +48,12 @@ namespace Client
         public async Task<GameRound> PlayRound(string humanCellChoiceLabel)
         {
             GameRound round = new GameRound();
-
             int humanIndex = getCellIndex(humanCellChoiceLabel);
-
             round.HumanIndexMove = humanIndex;
-
             round.Winner = "None";
-
             gameBoardCells[humanIndex] = HUMAN_SIGN;
-
             unreachedCells.Remove(humanIndex);
             gameMovesMemo.Add(humanIndex);
-
             round.unreachedCells = unreachedCells;
              
             if (CheckIfGameOver(HUMAN_SIGN) == true)
@@ -72,13 +65,9 @@ namespace Client
             else if(round.unreachedCells.Count > 0)
             {
                 round = await ServerTurn(round);
-
                 int serverIndex = round.ServerIndexMove;
-
                 gameBoardCells[serverIndex] = SERVER_SIGN;
-
                 unreachedCells.Remove(serverIndex);
-
                 gameMovesMemo.Add(serverIndex);
 
                 if (CheckIfGameOver(SERVER_SIGN))
@@ -111,22 +100,16 @@ namespace Client
             if (response.IsSuccessStatusCode)
             {
                 var serverTurnData = await response.Content.ReadAsStringAsync();
-
                 var gameRoundObject = JsonConvert.DeserializeObject<GameRound>(serverTurnData);
-
                 return gameRoundObject;
             }
-
-            return null;
-            
+            return null;           
         }
 
         public int getCellIndex(String cellLabel)
         {
             int indexLength = cellLabel.Length - 10;
-
             int index = Int32.Parse(cellLabel.Substring(10, indexLength));
-
             return index;
         }
 
