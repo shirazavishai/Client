@@ -36,7 +36,7 @@ namespace Client
                 gameBoard.Activate();
                 this.Hide();
                 gameBoard.ShowDialog();
-                this.Close();
+                this.Show();
             }
         }
 
@@ -64,9 +64,8 @@ namespace Client
             gamesDisplay.Activate();
             this.Hide();
             gamesDisplay.ShowDialog();
-            this.Close();
+            this.Show();
         }
 
-        
     }
 }

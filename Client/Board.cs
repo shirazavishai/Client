@@ -46,7 +46,7 @@ namespace Client
         {
             humanLabel.Text = gamePlayer.Name;
             changePlayersLabelsVisibility(true, false);
-            gamePlayersLabel.Text = "Computer \n\n      vs.\n\n" + gamePlayer.Name;
+            gamePlayersLabel.Text = "Computer\n\n vs.\n\n" + gamePlayer.Name;
             
         }
 
@@ -158,7 +158,7 @@ namespace Client
             gameMemo.PlayerId = gamePlayer.Id;
             gameMemo.Moves = gameMoves;
 
-            GamesMemoDB.TblPlayersGamesMemoes.Add(gameMemo);
+            GamesMemoDB.TblPlayersGamesMemo.Add(gameMemo);
             GamesMemoDB.SaveChanges();
         }
     }

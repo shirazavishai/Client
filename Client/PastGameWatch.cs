@@ -19,19 +19,14 @@ namespace Client
         public PastGameWatch(Player player, int gId,string moves)
         {
             gameBoard = new Board(player, gId, PAST_GAME);
-
-            gameBoard.Activate();
-            
+            gameBoard.Activate();            
             gameBoard.Show();
-
-            gameBoard.makeCellsUnClickable();
-            
-            gameMoves = new List<int>(Array.ConvertAll(moves.Split(','), int.Parse));
-            
-            startGame();
+            gameBoard.makeCellsUnClickable();           
+            gameMoves = new List<int>(Array.ConvertAll(moves.Split(','), int.Parse));      
         }
 
-        private void startGame()
+
+        public int startGame()
         {
             for(int i = 0; i < gameMoves.Count; i ++)
             {
@@ -47,8 +42,9 @@ namespace Client
                 {
                     currentCell.BackColor = Color.Blue;
                 }
-                
+                Thread.Sleep(1100);
             }
+            return 0;
         }
 
     }
