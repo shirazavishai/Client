@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    class Player
+    public class Player
     {
         public int Id { get; set; }
 

@@ -11,15 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http.Headers;
-
+using Newtonsoft.Json;
 
 namespace Client
 {
     public partial class LogIn : Form
     {
-        private Board gameBoard;
         private static HttpClient client = new HttpClient();
-
+        private Menu menu;
         public LogIn()
         {
 
@@ -50,40 +49,39 @@ namespace Client
 
             else
             {
-                await getPlayer();
+                Player player = await getPlayer();
 
+                if(player != null)
+                {
+                    menu = new Menu(player,client);
+                    menu.Activate();
+                    this.Hide();
+                    menu.ShowDialog();
+                    this.Close();
+                    
+                }
             }
-            Board board = new Board(IdInput.Text);
-            board.Activate();
-
         }
 
-        private async Task getPlayer()
+        private async Task<Player> getPlayer()
         {
             string url = "api/TblPlayers/" + IdInput.Text + "/" + UserNameInput.Text;
             HttpResponseMessage response = await client.GetAsync(url);
 
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                UserNotFound.Visible = true;
+                var playerAsString = await response.Content.ReadAsStringAsync();
+
+                var playerObject = JsonConvert.DeserializeObject<Player>(playerAsString);
+
+                return playerObject;
             }
             else
             {
-                this.Hide();
-                gameBoard = new Board(IdInput.Text);
-                gameBoard.ShowDialog();
-                this.Close();
+                UserNotFound.Visible = true;
+                return null;
             }
-        }
-
-        static async Task<object> CreateProductAsync(Player p)
-        {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
-                "api/TblPlayers", p);
-            response.EnsureSuccessStatusCode();
-            
-            // return URI of the created resource.
-            return response.StatusCode;
+        
         }
 
     }

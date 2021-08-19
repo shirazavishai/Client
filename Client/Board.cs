@@ -14,172 +14,145 @@ namespace Client
 
     public partial class Board : Form
     {
+        private const int NEW_GAME = 1;
+        public PictureBox[] cells { get; set; }
 
-        private static HttpClient client = new HttpClient();
-        private string PlayerId;
-        private int GameId;
-        private PictureBox[] cells;
+        private GameImplementation gameImplementation;
 
-        public Board(string playerId)
+        private Player gamePlayer;
+        private int gameId;
+
+        public Board(Player player,int gId,int gameType)
         {
             InitializeComponent();
-            PlayerId = playerId;
-            cells = new PictureBox []{ pictureBox0, pictureBox1, pictureBox2, pictureBox3, pictureBox4, 
-                                     pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, 
-                                     pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, 
-                                     pictureBox15, pictureBox16,pictureBox17, pictureBox18, pictureBox19, 
+
+            cells = new PictureBox[]{ pictureBox0, pictureBox1, pictureBox2, pictureBox3, pictureBox4,
+                                     pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9,
+                                     pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14,
+                                     pictureBox15, pictureBox16,pictureBox17, pictureBox18, pictureBox19,
                                      pictureBox20, pictureBox21, pictureBox22, pictureBox23, pictureBox24};
-        }
-
-        private async void Board_Load(object sender, EventArgs e)
-        {
-            label2.Visible = false;
-            client.BaseAddress = new Uri("https://localhost:44317/");
-            await createGame();
-            
-        }
-
-        private async Task createGame()
-        {
-            string url = "api/TblGames";
-            var game = new Game {PlayerId = PlayerId,Moves = "" ,Winner = "None"};
-            
-            HttpResponseMessage response = await client.PostAsJsonAsync(url, game);
-            
-            if (!response.IsSuccessStatusCode)
+            if (gameType == NEW_GAME)
             {
-                this.Hide();
+                gameImplementation = new GameImplementation();
             }
+            gamePlayer = player;
+            gameId = gId;
+        }
 
-            var gameAsString = await response.Content.ReadAsStringAsync();
-
-            var gameObject = JsonConvert.DeserializeObject<Game>(gameAsString);
-
-            GameId = gameObject.Id;
-
+        private void Board_Load(object sender, EventArgs e)
+        {
+            humanLabel.Text = gamePlayer.Name;
+            changePlayersLabelsVisibility(true, false);
+            gamePlayersLabel.Text = "Computer \n\n      vs.\n\n" + gamePlayer.Name;
+            
         }
 
 
         private async void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
+
             String cellLabel = pb.Name;
+
             pb.BackColor = Color.Red;
+
             pb.Enabled = false;
 
-            await Play(cellLabel);
-            fillCell(sender,0);
+            changePlayersLabelsVisibility(false, true);
+
+            makeCellsUnClickable();
+
+            GameRound currentRound = await gameImplementation.PlayRound(cellLabel);
+
+            collectRoundResults(currentRound);
+
         }
 
-        private void fillCell(object sender, int sign)
+        private void collectRoundResults(GameRound currentRound)
         {
-            PictureBox pb = (PictureBox)sender;
-        
-        }
+            if (currentRound.ServerIndexMove != -1)
+            {
+                cells[currentRound.ServerIndexMove].BackColor = Color.Blue;
+                cells[currentRound.ServerIndexMove].Enabled = false;
+            }
 
-        private async Task<Game> Play(string cellLabel)
-        {
+            if (currentRound.Winner != "None")
+            {
+                changePlayersLabelsVisibility(false, false);
+                winnerTitle.Text = "The winner is : ";
 
-            string url = "api/TblGames/" + GameId + "/" + cellLabel;
+                if (currentRound.Winner == "Human")
+                {
+                    winnerTitle.Text += gamePlayer.Name + " ! ";
+                }
 
-            var values = new Dictionary<string, string>() {};
-
-            var httpResponse = await client.PutAsJsonAsync(url, values);
-
-            httpResponse.EnsureSuccessStatusCode(); // throws if not 200-299
-
-                var contentStream = await httpResponse.Content.ReadAsStreamAsync();
+                else
+                {
+                    winnerTitle.Text += "Computer !";
+                }
                 
-                var streamReader = new StreamReader(contentStream);
+                winnerTitle.Visible = true;
+                saveGame();
+                return;
+            }
 
-                var jsonReader = new JsonTextReader(streamReader);
+            if (currentRound.unreachedCells.Count == 0)
+            {
+                changePlayersLabelsVisibility(false, false);
+                winnerTitle.Text = "GAME OVER";
+                winnerTitle.Visible = true;
+                saveGame();
+                return;
+            }
 
-                //string output = JsonConvert.SerializeObject(jsonReader);
-                JsonSerializer serializer = new JsonSerializer();
-
-                try
-                {
-                    //Game game = JsonConvert.DeserializeObject<Game>(output);
-                    Game game = serializer.Deserialize<Game>(jsonReader);
-
-                    string[] split = game.Moves.Split(new Char[] { ',', '\"', '\\' });
-
-                    List<int> shittyList = new List<int>();
-
-                    for (int i = 0; i < split.Length; i++)
-                    {
-                        int numericValue = 0;
-                        bool isNumber = int.TryParse(split[i], out numericValue);
-                        if (isNumber == true)
-                        {
-                            shittyList.Add(numericValue);
-                        }
-                    }
-
-                    if (game.Winner != "None")
-                    {
-                        winnerTitle.Text = winnerTitle.Text + " " + game.Winner;
-                    }
-
-                    int x = shittyList.Last();
-                    cells[x].BackColor = Color.Blue;
-                    cells[x].Enabled = false;
-                    return game;
-                }
-                catch (JsonReaderException)
-                {
-                    Console.WriteLine("Invalid JSON.");
-                }
+            changePlayersLabelsVisibility(true,false);
             
-            return null;
+            makeCellsClickable();
         }
+
+        private void changePlayersLabelsVisibility(bool humanLabelAction,bool computerLabelAction)
+        {
+            humanLabel.Visible = humanLabelAction;
+            computerLabel.Visible = computerLabelAction;
+        }
+
+        public void makeCellsUnClickable()
+        {
+            for(int i = 0; i < cells.Length; i ++)
+            {
+                cells[i].Enabled = false;
+            }
+        }
+
+        public void makeCellsClickable()
+        {
+            for (int i = 0; i < cells.Length; i++)
+            {
+                if (cells[i].BackColor.Name == "Window")
+                {
+                    cells[i].Enabled = true;
+                }
+            }
+        }
+        private void saveGame()
+        {
+
+            ProjectDBEntities6 GamesMemoDB = new ProjectDBEntities6();
+
+            string gameMoves = string.Join(",", gameImplementation.gameMovesMemo);
+
+            TblPlayersGamesMemo gameMemo = new TblPlayersGamesMemo();
+
+            gameMemo.GameId = gameId;
+            gameMemo.PlayerId = gamePlayer.Id;
+            gameMemo.Moves = gameMoves;
+
+            GamesMemoDB.TblPlayersGamesMemoes.Add(gameMemo);
+            GamesMemoDB.SaveChanges();
+            
+        }
+
+        
     }
 
-    //    private async Task Play(string cellLabel)
-    //    {
-    //        string url = "api/TblGames/" + GameId + "/" + cellLabel;
-
-    //        var values = new Dictionary<string, string>()
-    //        {
-    //            {"id" , Convert.ToString(GameId)},
-    //            {"cellLabel", cellLabel}
-    //        };
-    //        HttpResponseMessage response = await client.PutAsJsonAsync(url, values);
-
-    //        if (!response.IsSuccessStatusCode)
-    //        {
-    //            this.Hide();
-    //        }
-
-    //        var turnResultAsString = await response.Content.ReadAsStringAsync();
-
-    //        var gameObject = JsonSerializer.Deserialize(turnResultAsString);
-
-    //        //var gameObject = JsonConvert.DeserializeObject<Game>(turnResultAsString);
-
-    //        string[] split = gameObject.Moves.Split(new Char[] { ',', '\"' ,'\\'});
-
-    //        List<int> shittyList = new List<int>();
-
-    //        for(int i = 0; i < split.Length; i ++)
-    //        {
-    //            int numericValue = 0;
-    //            bool isNumber = int.TryParse(split[i], out numericValue);
-    //            if(isNumber == true)
-    //            {
-    //                shittyList.Add(numericValue);
-    //            }
-    //        }
-
-    //        if(gameObject.Winner != "None")
-    //        {
-    //            winnerTitle.Text = winnerTitle.Text + " " + gameObject.Winner;
-    //        }
-
-    //        int x = shittyList.Last();
-    //        cells[x].BackColor = Color.Blue;
-    //        cells[x].Enabled = false;
-
-    //    }
-    //}
 }
