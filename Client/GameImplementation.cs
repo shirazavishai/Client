@@ -192,7 +192,7 @@ namespace Client
             return false;
         }
 
-        public async void saveGame(string gameWinner)
+        public async void saveGame(string gameWinner,Player thePlayer)
         {
             string gameMoves = string.Join(",", gameMovesMemo);
 
@@ -206,6 +206,11 @@ namespace Client
                 var gameAsString = await response.Content.ReadAsStringAsync();
                 var gameObject = JsonConvert.DeserializeObject<Game>(gameAsString);
             }
+
+            string playerUrl = "api/TblPlayers/" + PlayerId;
+            var player = new Player { Id = PlayerId, Name = thePlayer.Name, Games = thePlayer.Games + GameId + "," };
+            HttpResponseMessage response2 = await client.PutAsJsonAsync(playerUrl, player);
+
         }
     }
 }

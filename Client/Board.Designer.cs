@@ -32,7 +32,6 @@ namespace Client
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox24 = new System.Windows.Forms.PictureBox();
             this.pictureBox23 = new System.Windows.Forms.PictureBox();
             this.pictureBox22 = new System.Windows.Forms.PictureBox();
@@ -65,7 +64,6 @@ namespace Client
             this.winnerTitle = new System.Windows.Forms.Label();
             this.gamePlayersLabel = new System.Windows.Forms.Label();
             this.goBack = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
@@ -94,46 +92,11 @@ namespace Client
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.pictureBox24);
-            this.groupBox1.Controls.Add(this.pictureBox23);
-            this.groupBox1.Controls.Add(this.pictureBox22);
-            this.groupBox1.Controls.Add(this.pictureBox21);
-            this.groupBox1.Controls.Add(this.pictureBox20);
-            this.groupBox1.Controls.Add(this.pictureBox19);
-            this.groupBox1.Controls.Add(this.pictureBox18);
-            this.groupBox1.Controls.Add(this.pictureBox17);
-            this.groupBox1.Controls.Add(this.pictureBox16);
-            this.groupBox1.Controls.Add(this.pictureBox15);
-            this.groupBox1.Controls.Add(this.pictureBox14);
-            this.groupBox1.Controls.Add(this.pictureBox13);
-            this.groupBox1.Controls.Add(this.pictureBox12);
-            this.groupBox1.Controls.Add(this.pictureBox11);
-            this.groupBox1.Controls.Add(this.pictureBox10);
-            this.groupBox1.Controls.Add(this.pictureBox9);
-            this.groupBox1.Controls.Add(this.pictureBox8);
-            this.groupBox1.Controls.Add(this.pictureBox7);
-            this.groupBox1.Controls.Add(this.pictureBox6);
-            this.groupBox1.Controls.Add(this.pictureBox5);
-            this.groupBox1.Controls.Add(this.pictureBox4);
-            this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Controls.Add(this.pictureBox3);
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.pictureBox0);
-            this.groupBox1.Location = new System.Drawing.Point(267, 122);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(433, 346);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            // 
             // pictureBox24
             // 
             this.pictureBox24.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox24.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox24.Location = new System.Drawing.Point(336, 270);
+            this.pictureBox24.Location = new System.Drawing.Point(593, 392);
             this.pictureBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox24.Name = "pictureBox24";
             this.pictureBox24.Size = new System.Drawing.Size(72, 58);
@@ -145,7 +108,7 @@ namespace Client
             // 
             this.pictureBox23.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox23.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox23.Location = new System.Drawing.Point(259, 270);
+            this.pictureBox23.Location = new System.Drawing.Point(516, 392);
             this.pictureBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox23.Name = "pictureBox23";
             this.pictureBox23.Size = new System.Drawing.Size(72, 58);
@@ -157,7 +120,7 @@ namespace Client
             // 
             this.pictureBox22.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox22.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox22.Location = new System.Drawing.Point(179, 270);
+            this.pictureBox22.Location = new System.Drawing.Point(436, 392);
             this.pictureBox22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox22.Name = "pictureBox22";
             this.pictureBox22.Size = new System.Drawing.Size(72, 58);
@@ -169,7 +132,7 @@ namespace Client
             // 
             this.pictureBox21.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox21.Location = new System.Drawing.Point(101, 270);
+            this.pictureBox21.Location = new System.Drawing.Point(358, 392);
             this.pictureBox21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(72, 58);
@@ -181,10 +144,10 @@ namespace Client
             // 
             this.pictureBox20.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox20.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox20.Location = new System.Drawing.Point(24, 270);
+            this.pictureBox20.Location = new System.Drawing.Point(281, 392);
             this.pictureBox20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox20.Name = "pictureBox20";
-            this.pictureBox20.Size = new System.Drawing.Size(72, 58);
+            this.pictureBox20.Size = new System.Drawing.Size(71, 58);
             this.pictureBox20.TabIndex = 19;
             this.pictureBox20.TabStop = false;
             this.pictureBox20.Click += new System.EventHandler(this.pictureBox_Click);
@@ -193,7 +156,7 @@ namespace Client
             // 
             this.pictureBox19.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox19.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox19.Location = new System.Drawing.Point(336, 208);
+            this.pictureBox19.Location = new System.Drawing.Point(593, 330);
             this.pictureBox19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox19.Name = "pictureBox19";
             this.pictureBox19.Size = new System.Drawing.Size(72, 58);
@@ -205,7 +168,7 @@ namespace Client
             // 
             this.pictureBox18.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox18.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox18.Location = new System.Drawing.Point(259, 208);
+            this.pictureBox18.Location = new System.Drawing.Point(516, 330);
             this.pictureBox18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(72, 58);
@@ -217,7 +180,7 @@ namespace Client
             // 
             this.pictureBox17.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox17.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox17.Location = new System.Drawing.Point(180, 208);
+            this.pictureBox17.Location = new System.Drawing.Point(437, 330);
             this.pictureBox17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.Size = new System.Drawing.Size(72, 58);
@@ -229,7 +192,7 @@ namespace Client
             // 
             this.pictureBox16.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox16.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox16.Location = new System.Drawing.Point(101, 208);
+            this.pictureBox16.Location = new System.Drawing.Point(358, 330);
             this.pictureBox16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.Size = new System.Drawing.Size(72, 58);
@@ -241,7 +204,7 @@ namespace Client
             // 
             this.pictureBox15.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox15.Location = new System.Drawing.Point(24, 208);
+            this.pictureBox15.Location = new System.Drawing.Point(281, 330);
             this.pictureBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(72, 58);
@@ -253,7 +216,7 @@ namespace Client
             // 
             this.pictureBox14.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox14.Location = new System.Drawing.Point(336, 146);
+            this.pictureBox14.Location = new System.Drawing.Point(593, 268);
             this.pictureBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(72, 58);
@@ -265,7 +228,7 @@ namespace Client
             // 
             this.pictureBox13.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox13.Location = new System.Drawing.Point(259, 146);
+            this.pictureBox13.Location = new System.Drawing.Point(516, 268);
             this.pictureBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(72, 58);
@@ -277,7 +240,7 @@ namespace Client
             // 
             this.pictureBox12.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox12.Location = new System.Drawing.Point(180, 146);
+            this.pictureBox12.Location = new System.Drawing.Point(437, 268);
             this.pictureBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(72, 58);
@@ -289,7 +252,7 @@ namespace Client
             // 
             this.pictureBox11.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox11.Location = new System.Drawing.Point(101, 146);
+            this.pictureBox11.Location = new System.Drawing.Point(358, 268);
             this.pictureBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(72, 58);
@@ -301,7 +264,7 @@ namespace Client
             // 
             this.pictureBox10.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox10.Location = new System.Drawing.Point(24, 146);
+            this.pictureBox10.Location = new System.Drawing.Point(281, 268);
             this.pictureBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(72, 58);
@@ -313,7 +276,7 @@ namespace Client
             // 
             this.pictureBox9.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox9.Location = new System.Drawing.Point(336, 82);
+            this.pictureBox9.Location = new System.Drawing.Point(593, 204);
             this.pictureBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(72, 58);
@@ -325,7 +288,7 @@ namespace Client
             // 
             this.pictureBox8.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox8.Location = new System.Drawing.Point(259, 82);
+            this.pictureBox8.Location = new System.Drawing.Point(516, 204);
             this.pictureBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(72, 58);
@@ -337,7 +300,7 @@ namespace Client
             // 
             this.pictureBox7.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox7.Location = new System.Drawing.Point(180, 82);
+            this.pictureBox7.Location = new System.Drawing.Point(437, 204);
             this.pictureBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(72, 58);
@@ -349,7 +312,7 @@ namespace Client
             // 
             this.pictureBox6.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox6.Location = new System.Drawing.Point(101, 82);
+            this.pictureBox6.Location = new System.Drawing.Point(358, 204);
             this.pictureBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(72, 58);
@@ -361,7 +324,7 @@ namespace Client
             // 
             this.pictureBox5.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox5.Location = new System.Drawing.Point(24, 82);
+            this.pictureBox5.Location = new System.Drawing.Point(281, 204);
             this.pictureBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(72, 58);
@@ -373,7 +336,7 @@ namespace Client
             // 
             this.pictureBox4.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox4.Location = new System.Drawing.Point(336, 21);
+            this.pictureBox4.Location = new System.Drawing.Point(593, 143);
             this.pictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(72, 58);
@@ -385,7 +348,7 @@ namespace Client
             // 
             this.pictureBox2.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox2.Location = new System.Drawing.Point(180, 21);
+            this.pictureBox2.Location = new System.Drawing.Point(437, 143);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(72, 58);
@@ -397,7 +360,7 @@ namespace Client
             // 
             this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Location = new System.Drawing.Point(259, 21);
+            this.pictureBox3.Location = new System.Drawing.Point(516, 143);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(72, 58);
@@ -409,7 +372,7 @@ namespace Client
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Location = new System.Drawing.Point(101, 21);
+            this.pictureBox1.Location = new System.Drawing.Point(358, 143);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(72, 58);
@@ -421,7 +384,7 @@ namespace Client
             // 
             this.pictureBox0.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox0.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox0.Location = new System.Drawing.Point(24, 21);
+            this.pictureBox0.Location = new System.Drawing.Point(281, 143);
             this.pictureBox0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox0.Name = "pictureBox0";
             this.pictureBox0.Size = new System.Drawing.Size(72, 58);
@@ -492,18 +455,41 @@ namespace Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 556);
+            this.Controls.Add(this.pictureBox24);
+            this.Controls.Add(this.pictureBox23);
             this.Controls.Add(this.goBack);
+            this.Controls.Add(this.pictureBox22);
             this.Controls.Add(this.gamePlayersLabel);
+            this.Controls.Add(this.pictureBox21);
             this.Controls.Add(this.winnerTitle);
+            this.Controls.Add(this.pictureBox20);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.pictureBox19);
             this.Controls.Add(this.computerLabel);
+            this.Controls.Add(this.pictureBox18);
             this.Controls.Add(this.humanLabel);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.pictureBox17);
+            this.Controls.Add(this.pictureBox16);
+            this.Controls.Add(this.pictureBox0);
+            this.Controls.Add(this.pictureBox15);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox14);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox13);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox12);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.pictureBox11);
+            this.Controls.Add(this.pictureBox5);
+            this.Controls.Add(this.pictureBox10);
+            this.Controls.Add(this.pictureBox6);
+            this.Controls.Add(this.pictureBox9);
+            this.Controls.Add(this.pictureBox7);
+            this.Controls.Add(this.pictureBox8);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Board";
             this.Text = "Form";
             this.Load += new System.EventHandler(this.Board_Load);
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
@@ -540,8 +526,6 @@ namespace Client
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox0;
         private System.Windows.Forms.PictureBox pictureBox24;
         private System.Windows.Forms.PictureBox pictureBox23;

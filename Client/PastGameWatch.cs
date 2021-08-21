@@ -42,7 +42,7 @@ namespace Client
                 {
                     currentCell.BackColor = Color.Blue;
                 }
-                Thread.Sleep(1100);
+                Thread.Sleep(800);
             }
             return 0;
         }

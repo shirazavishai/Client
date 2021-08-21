@@ -28,6 +28,7 @@ namespace Client
         {
             TblbindingSource1.DataSource = GamesMemoDB.TblPlayersGamesMemo.ToList();
             dataGridView1.DataSource = TblbindingSource1;
+            mustSelect.Visible = false;
             ShowGames();
         }
 
@@ -45,12 +46,13 @@ namespace Client
             {
                 int gameId = int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                 string gameMoves = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+                mustSelect.Visible = false;
                 PastGameWatch postGameWatch = new PastGameWatch(player,gameId, gameMoves);
                 await Task.Run<int>(()=> postGameWatch.startGame());
             }
             catch (Exception ex)
             {
-                choose.Text = "Must select a game";
+                mustSelect.Visible = true;
             }
             
         }

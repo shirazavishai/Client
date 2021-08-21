@@ -22,7 +22,7 @@ namespace Client
         private Player gamePlayer;
         private int gameId;
 
-        public Board(Player player,int gId,int gameType,HttpClient client)
+        public Board(Player player, int gId, int gameType, HttpClient client)
         {
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace Client
 
             if (gameType == NEW_GAME)
             {
-                gameImplementation = new GameImplementation(gameId, gamePlayer.Id,Client);
+                gameImplementation = new GameImplementation(gameId, gamePlayer.Id, Client);
             }
         }
 
@@ -47,34 +47,27 @@ namespace Client
             humanLabel.Text = gamePlayer.Name;
             changePlayersLabelsVisibility(true, false);
             gamePlayersLabel.Text = "Computer\n\n vs.\n\n" + gamePlayer.Name;
-            
+
         }
 
 
         private async void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
-
             String cellLabel = pb.Name;
-
             pb.BackColor = Color.Red;
-
             pb.Enabled = false;
-
             changePlayersLabelsVisibility(false, true);
-
             makeCellsUnClickable();
-
             GameRound currentRound = await gameImplementation.PlayRound(cellLabel);
-
             collectRoundResults(currentRound);
-
         }
 
         private void collectRoundResults(GameRound currentRound)
         {
             if (currentRound.ServerIndexMove != -1 && currentRound.Winner != "Human")
             {
+
                 cells[currentRound.ServerIndexMove].BackColor = Color.Blue;
                 cells[currentRound.ServerIndexMove].Enabled = false;
             }
@@ -143,7 +136,7 @@ namespace Client
         private void saveGame(string gameWinner)
         {
             saveGameForClient();
-            gameImplementation.saveGame(gameWinner);
+            gameImplementation.saveGame(gameWinner,gamePlayer);
         }
 
         private void saveGameForClient()
